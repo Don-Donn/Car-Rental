@@ -12,7 +12,7 @@
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
             }
 
-            .rgo-txt{
+            .header-txt{
 
                 right: 100%;
                 margin: 0;
@@ -34,30 +34,7 @@
       <!-- Main Content -->
       <div id="content">
             <header class="topbar-header">
-                <p class ="rgo-txt">RESOURCE GENERATION OFFICE </p>
-            <div class="welcome">
-            <?php
-                error_reporting(0);
-                session_start();
-                include("../includes/connection.php");
-                if (isset($_SESSION['user_id'])) {
-                    $user_id = $_SESSION['user_id'];
-
-                    $query = "SELECT firstname FROM tbemployee WHERE empid = $user_id";
-                    $result = mysqli_query($con, $query);
-
-                    if (mysqli_num_rows($result) == 1) {
-                        $row = mysqli_fetch_assoc($result);
-                        $first_name = $row['firstname'];
-                        echo "<h6 style='position: absolute; top: 40px; right: 15px; color: black;'>Admin $first_name</h6>";
-                    } else {
-                        echo "<h6 style='position: absolute; top: 40px; right: 15px; color: black;'>Admin</h6>";
-                    }
-                } else {
-                    header("Location: loginAdmin.php");
-                }
-            ?>
-            </div>
+                <p class ="header-txt">LAYCO CAR RENTAL SERVICES </p>
             </header>
             <!-- End of Topbar -->
     

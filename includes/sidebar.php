@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 
-    <title>UNIVERSITY SHOP</title>
+    <title>LAYCO CAR RENTALS</title>
 
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -24,7 +24,7 @@
             <nav  id="sidebar">
                 <div class="brand-container">
                     <img id="spartanLlogo" src="../icons/redSpartan.png" alt="Logo" width="95" height="102" >
-                    <p class="univ-txt">University <br>Shop</p>
+                    <p class="univ-txt">Layco Car <br>Rentals</p>
                 </div>
                 <ul>
 

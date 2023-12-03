@@ -30,7 +30,7 @@
             <footer class="sticky-footer">
                 <div class="container">
                 <div class="copyright text-center">
-                    <span>Copyright © Layco Car Rentals 2023.</span>
+                    <span>Copyright © Layco's Car Rentals 2023.</span>
                 </div>
                 </div>
             </footer>

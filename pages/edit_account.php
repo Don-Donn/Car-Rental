@@ -47,7 +47,7 @@ include'../includes/sidebar.php';
         text-align: center;
         width: 43%;
         padding: 5px;
-        font-size: 12px;
+        font-size: 15px;
         line-height: 1.5;
         }
 
@@ -74,10 +74,7 @@ include'../includes/sidebar.php';
         </div>
         <div class="editAccountForm">
             <form method="POST">
-                <?php
-                $empid = isset($_GET['empid']) ? $_GET['empid'] : '';
-                ?>
-                
+
                 <label for="ID">ID:</label><br>
                 <input type="text" id="ID" name="ID"  readonly>
                 <br>

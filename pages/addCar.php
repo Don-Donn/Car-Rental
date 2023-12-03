@@ -46,7 +46,7 @@ include'../includes/sidebar.php';
         text-align: center;
         width: 43%;
         padding: 5px;
-        font-size: 12px;
+        font-size: 15px;
         line-height: 1.5;
         }
 

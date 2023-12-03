@@ -9,13 +9,13 @@
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="../css/loginAdmin.css">
+        <link rel="stylesheet" href="../css/login.css">
 
     </head>
     <body>
         <header id="header">
             <div>
-                <p id = "layco">LAYCO CAR RENTAL SERVICES</p>
+                <p id = "layco">LAYCO'S CAR RENTAL SERVICES</p>
             </div>
             <div id = "location">
                 <h4>Brgy. Dagatan, Lipa City</h4>
@@ -25,7 +25,7 @@
     </br>
 
         <div id ="rental_text">
-            <h2>LAYCO CAR RENTAL LOGIN</h2>
+            <h2>LAYCO'S CAR RENTAL LOGIN</h2>
         </div>
 
         <div class="login_container">
@@ -39,6 +39,10 @@
             <button type="submit" name="login_user" id="login-button">Login</button>
 
         </form>
+        </div>
+            <img id="spartanLlogo" src="../icons/loginCar.png" alt="Logo" width="30%" height="auto" style=" margin:0;">
+        <div>
+
         </div>
 
     </body>

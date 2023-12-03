@@ -24,7 +24,7 @@
             <nav  id="sidebar">
                 <div class="brand-container">
                     <img id="spartanLlogo" src="../icons/carLogo.png" alt="Logo" width="55" height="60" style="margin-left: 55px; margin-top: 15px; margin-bottom: 0;">
-                    <p class="layco-txt" style="margin-left: 15px; margin-top: 15px; margin-bottom: 0;">Layco Car <br>Rentals</p>
+                    <p class="layco-txt" style="margin-left: 15px; margin-top: 15px; margin-bottom: 0;">Layco's Car <br>Rentals</p>
                 </div>
                 <ul>
 

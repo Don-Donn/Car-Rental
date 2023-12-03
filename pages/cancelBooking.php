@@ -45,7 +45,7 @@ include'../includes/sidebar.php';
         text-align: center;
         width: 43%;
         padding: 5px;
-        font-size: 12px;
+        font-size: 15px;
         line-height: 1.5;
         }
 
@@ -67,14 +67,20 @@ include'../includes/sidebar.php';
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="true" style="color: white; background-color: rgb(25,25,112); font-weight: bold;">ADD ACCOUNT</a>
+                    <a class="nav-link" href="updateBooking.php">UPDATE STATUS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="true" style="color: white; background-color: rgb(25,25,112); font-weight: bold;" href="cancelBooking.php">CANCEL BOOKING</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="editBooking.php">EDIT BOOKING</a>
                 </li>             
             </ul>
         </div>
     <div class="cancelForm">
             <form method="POST">
                 <label for="bookingID">Booking ID:</label><br>
-                <input type="number" id="bookingID" name="bookingID" required>
+                <input type="number" id="bookingID" name="bookingID" readonly>
                 <br>
 
                 <label for="customerName">Customer Name:</label><br>

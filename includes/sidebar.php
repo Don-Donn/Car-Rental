@@ -24,7 +24,7 @@
             <nav  id="sidebar">
                 <div class="brand-container">
                     <img id="spartanLlogo" src="../icons/redSpartan.png" alt="Logo" width="95" height="102" >
-                    <p class="univ-txt">Layco Car <br>Rentals</p>
+                    <p class="layco-txt">Layco Car <br>Rentals</p>
                 </div>
                 <ul>
 

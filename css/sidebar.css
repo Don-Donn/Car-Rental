@@ -68,35 +68,11 @@ ul{
 
 }
 
-#navLink1:hover{
+#nav-link:hover{
     background: maroon;
     color: white;
 }
 
-#navLink2:hover{
-    background: maroon;
-    color: white;
-}
-
-#navLink3:hover{
-    background: maroon;
-    color: white;
-}
-
-#navLink4:hover{
-    background: maroon;
-    color: white;
-}
-
-#navLink5:hover{
-    background: maroon;
-    color: white;
-}
-
-.nav-link.clicked{
-    background: maroon;
-    color: white;
-}
 
 .btn-link{
     background-color: gold;

@@ -32,24 +32,30 @@
                     <hr class="sidebar-divider" id="header-hr">
 
                     <!-- Nav Items -->
+                    <li class="nav-item">
+                        <a class="nav-link"  href="dashboard.php">
+                            <i class="fa-solid fa-warehouse"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" id="navLink4" href="ADproductInventory.php">
+                        <a class="nav-link"  href="rentals.php">
                             <i class="fa-solid fa-warehouse"></i>
-                            <span>Product Inventory</span>
+                            <span>Rentals</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <p class="nav-link">
+                        <a class="nav-link" href="history.php">
                             <i class="fa-solid fa-clipboard-list fa-lg"></i>
-                            <span>Transaction</span>
-                        </p>
+                            <span>Transaction History</span>
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <p class="nav-link">
+                    <li class="nav-item" >
+                        <a class="nav-link" href="cars.php">
                             <i class="fa-solid fa-bullhorn"></i>
-                            <span>Announcement</span>
-                        </p>
+                            <span>Car Section</span>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="navLink5" href="accounts.php">
@@ -75,12 +81,12 @@
             <script src="../css/sidebar.js"></script>
             <!-- End of Sidebar -->
 
-<!-- end div wrapper to footer-->
+
 
 <!-- include_once topbar/header -->
 <?php include_once 'topbar.php'; ?>
 <?php include_once '../pages/logoutAdmin.php'; ?>
-<!-- move end html tag to footer-->
+
 
 
 

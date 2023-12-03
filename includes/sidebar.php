@@ -73,7 +73,6 @@
                     <!-- Sidebar Toggler (Logout) -->
                     
                     <button id="btn" name="btn" class="logout-btn">Logout</button>
-
                     </div>
 
             </nav>
@@ -85,7 +84,7 @@
 
 <!-- include_once topbar/header -->
 <?php include_once 'topbar.php'; ?>
-
+<?php include_once '../pages/logout.php'; ?>
 
 
 

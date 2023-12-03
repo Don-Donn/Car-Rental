@@ -32,7 +32,7 @@
         <form action=" " method="post">
             <p class="admin-login">Admin</p>
 
-            <input type="email" id="email" name="email" placeholder="Username" required><br>
+            <input type="text" id="username" name="username" placeholder="Username" required><br>
 
             <input type="password" id="password" name="password" placeholder="Password" required><br>
 
@@ -47,7 +47,61 @@
 
     </body>
 </html>
+<?php
+include_once('../includes/connection.php');
 
+class AdminLogin {
+    private $db;
+
+    public function __construct($db) {
+        $this->db = $db;
+    }
+
+    public function login($username, $password) {
+        if (empty($username) || empty($password)) {
+            return "Please enter both username and password.";
+        }
+    
+        $query = "SELECT * FROM admin_accounts WHERE username = ? AND password = ?";
+        $stmt = $this->db->prepare($query);
+    
+
+        $stmt->bind_param("ss", $username, $password);
+    
+
+        $stmt->execute();
+
+        $stmt->store_result();
+    
+        $rowCount = $stmt->num_rows;
+
+        $stmt->close();
+        if ($rowCount > 0) {
+            return true;
+        } else {
+            return "Invalid username or password. Row count: $rowCount";
+        }
+    }
+}
+
+$dbConnection = new DbConnection();
+$db = $dbConnection->getConnection();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    $adminLogin = new AdminLogin($db);
+    $loginResult = $adminLogin->login($username, $password);
+
+    if ($loginResult === true) {
+        header("Location: dashboard.php");
+        exit();
+    } else {
+        echo $loginResult;
+    }
+}
+?>
 
 <!-- End of Login Page -->
 

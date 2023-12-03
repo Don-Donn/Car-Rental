@@ -37,7 +37,7 @@ include'../includes/sidebar.php';
         font-size: medium;
         }
 
-        label, select, input {
+        select, input {
         display: inline-block;
         margin-bottom: 10px;
         }

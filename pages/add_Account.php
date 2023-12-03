@@ -38,9 +38,9 @@ include'../includes/sidebar.php';
         font-size: medium;
         }
 
-        label, select, input {
+        select, input {
         display: inline-block;
-        margin-bottom: 10px;
+        margin-bottom: 0;
         }
 
         select, input[type="text"], input[type="number"] {

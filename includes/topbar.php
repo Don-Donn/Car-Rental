@@ -18,7 +18,7 @@
                 margin: 0;
                 padding: 27px;
                 text-align: center;
-                color: maroon;
+                color: darkblue;
                 font-size: 30px;
                 font-weight: bold;
                 

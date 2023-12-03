@@ -18,7 +18,7 @@ body{
 }
 
 .brand-container{
-    color: black;
+    color: rgb(25,25,112);
     padding: 0;
     padding-top: 0;
     margin: 0;
@@ -38,8 +38,8 @@ body{
 }
 
 #header-hr {
-    color:maroon;
-    border: 1.60px solid maroon; 
+    color:rgb(25,25,112);
+    border: 1.60px solid rgb(25,25,112); 
     margin: 15px;
     left:5;
 
@@ -68,8 +68,8 @@ ul{
 
 }
 
-#nav-link:hover{
-    background: maroon;
+.nav-link:hover{
+    background: rgb(25,25,112);
     color: white;
 }
 
@@ -90,9 +90,9 @@ ul{
 
 
 #logout-hr{
-    color: maroon;
+    color: rgb(25,25,112);
     bottom: 60px;
-    border: .1px solid maroon; 
+    border: .1px solid rgb(25,25,112); 
     margin: 15px;
     left:5;
     opacity: 0.2;
@@ -100,7 +100,7 @@ ul{
 }
 
 .logout-btn{
-    background-color: maroon;
+    background-color: rgb(25,25,112);
     padding: 10px 20px;
     position: absolute;
     top: 630px;

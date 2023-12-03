@@ -23,8 +23,8 @@
         <div id = wrapper> <!-- Page Wrapper/Add Div wrapper -->
             <nav  id="sidebar">
                 <div class="brand-container">
-                    <img id="spartanLlogo" src="../icons/redSpartan.png" alt="Logo" width="95" height="102" >
-                    <p class="layco-txt">Layco Car <br>Rentals</p>
+                    <img id="spartanLlogo" src="../icons/carLogo.png" alt="Logo" width="55" height="60" style="margin-left: 55px; margin-top: 15px; margin-bottom: 0;">
+                    <p class="layco-txt" style="margin-left: 15px; margin-top: 15px; margin-bottom: 0;">Layco Car <br>Rentals</p>
                 </div>
                 <ul>
 
@@ -34,14 +34,14 @@
                     <!-- Nav Items -->
                     <li class="nav-item">
                         <a class="nav-link"  href="dashboard.php">
-                            <i class="fa-solid fa-warehouse"></i>
+                            <i class="fa-solid fa-gauge" style="color: #000000;"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link"  href="rentals.php">
-                            <i class="fa-solid fa-warehouse"></i>
+                            <i class="fa-solid fa-marker" style="color: #000000;"></i>
                             <span>Rentals</span>
                         </a>
                     </li>
@@ -53,12 +53,12 @@
                     </li>
                     <li class="nav-item" >
                         <a class="nav-link" href="cars.php">
-                            <i class="fa-solid fa-bullhorn"></i>
+                            <i class="fa-solid fa-car-side" style="color: #000000;"></i>
                             <span>Car Section</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navLink5" href="accounts.php">
+                        <a class="nav-link" id="navLink5" href="adminAccount.php">
                             <i class="fa-solid fa-user"></i>
                             <span>Accounts</span>
                         </a>
@@ -85,7 +85,6 @@
 
 <!-- include_once topbar/header -->
 <?php include_once 'topbar.php'; ?>
-<?php include_once '../pages/logoutAdmin.php'; ?>
 
 
 

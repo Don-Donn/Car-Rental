@@ -20,7 +20,7 @@
                     background: white;
                 }
                 .copyright{
-                    color: maroon;
+                    color: darkblue;
                     margin: 0;
                     text-align: center;
                     

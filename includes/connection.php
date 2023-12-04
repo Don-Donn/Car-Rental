@@ -22,8 +22,9 @@ class DbConnection
         
         return $this->connection;
     }
-        public function getConnection() {
-            return $this->connection;
+
+    public function getConnection() {
+        return $this->connection;
     }
 }
 ?>

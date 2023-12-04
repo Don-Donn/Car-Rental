@@ -89,28 +89,79 @@ include'../includes/sidebar.php';
         }
 
     </style>
+<?php
+include_once('../includes/connection.php');
+
+class RentalManager {
+    private $db;
+
+    public function __construct(DbConnection $dbConnection) {
+        $this->db = $dbConnection->getConnection();
+    }
+
+    public function countRentalsByStatus($status) {
+        $query = "SELECT COUNT(*) as count FROM rentals WHERE status = ?";
+        $stmt = $this->db->prepare($query);
+
+        if ($stmt) {
+            $stmt->bind_param("s", $status);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+
+            $stmt->close();
+
+            return $row['count'];
+        } else {
+            error_log("Prepare Statement Error: " . $this->db->error);
+            return 0;
+        }
+    }
+
+    public function calculateOverallGrossIncome() {
+        $query = "SELECT SUM(price + penalty) as total FROM rentals";
+        $result = $this->db->query($query);
+
+        if ($result) {
+            $row = $result->fetch_assoc();
+            return $row['total'];
+        } else {
+            error_log("SQL Error: " . $this->db->error);
+            return 0;
+        }
+    }
+}
+
+$dbConnection = new DbConnection();
+$rentalManager = new RentalManager($dbConnection);
+
+$ongoingCount = $rentalManager->countRentalsByStatus('ongoing');
+$completedCount = $rentalManager->countRentalsByStatus('completed');
+$overallGrossIncome = $rentalManager->calculateOverallGrossIncome();
+?>
+
+
     <!-- card for ongoing rental/s, total completed rentals, total gross income-->
     <!-- Start of Dashboard -->
             <div class="card bg-c-blue order-card">
-                <div class="card-block">
+            <div class="card-block">
                     <h5 class="m-b-20">ONGOING RENTALS</h5>
-                    <h2 class="text-right"><i class="fa-solid fa-clock" style="color: #ffffff;"></i><span>486</span></h2>
-
+                    <h2 class="text-right"><i class="fa-solid fa-clock" style="color: #ffffff;"></i><span><?php echo $ongoingCount; ?></span></h2>
                 </div>
             </div>
 
             <div class="card2 bg-c-green order-card">
                 <div class="card-block">
                     <h5 class="m-b-20">COMPLETED RENTALS</h5>
-                    <h2 class="text-right"><i class="fa-solid fa-circle-check" style="color: #ffffff;"></i></i><span>486</span></h2>
-
+                    <h2 class="text-right"><i class="fa-solid fa-circle-check" style="color: #ffffff;"></i></i><span><?php echo $completedCount; ?></span></h2>
                 </div>
             </div>
 
             <div class="card2 bg-c-yellow order-card">
                 <div class="card-block">
                     <h5 class="m-b-20">TOTAL GROSS INCOME</h5>
-                    <h2 class="text-right"><i class="fa-solid fa-sack-dollar" style="color: #ffffff;"></i></i><span>486</span></h2>
+                    <h2 class="text-right"><i class="fa-solid fa-sack-dollar" style="color: #ffffff;"></i></i><span><?php echo isset($overallGrossIncome) ? $overallGrossIncome : 0; ?></span></h2>
                 </div>
             </div>
 

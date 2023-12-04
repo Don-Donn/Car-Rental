@@ -1,5 +1,4 @@
 <?php
-include'../includes/connection.php';
 include'../includes/sidebar.php';
 ?>
 
@@ -78,7 +77,11 @@ include'../includes/sidebar.php';
 
                 <label for="customerName">Customer Name:</label><br>
                 <input type="text" id="customerName" name="customerName" required>
-                <br>     
+                <br>
+                
+                <label for="customerNumber">Customer Number:</label><br>
+                <input type="number" id="customerNumber" name="customerNumber" required>
+                <br>  
 
                 <label for="car">Car:</label><br>
                 <select id="car" name="car">
@@ -89,8 +92,8 @@ include'../includes/sidebar.php';
                 </select>
                 <br>   
 
-                <label for="barrowDate">Barrow Date:</label>
-                <input type="date" id="barrowDate" name="barrowDate" required>
+                <label for="borrowDate">Borrow Date:</label>
+                <input type="date" id="borrowDate" name="borrowDate" required>
                 <br>
 
                 <label for="returnDate">Return Date:</label>
@@ -117,6 +120,82 @@ include'../includes/sidebar.php';
         </div>
 
     </div>
+    
+    <?php
+ include_once('../includes/connection.php');
+
+ $dbConnection = new DbConnection();
+ $db = $dbConnection->getConnection();
+ 
+ class RentalManager
+ {
+     private $db;
+ 
+     public function __construct($db)
+     {
+         $this->db = $db;
+     }
+ 
+     public function addBooking($customerName, $customerNumber, $carName, $borrowDate, $returnDate, $price, $finePerDay, $status)
+     {
+         $insertCustomerQuery = "INSERT INTO customers (name, number) VALUES (?,?)";
+         $stmtCustomer = $this->db->prepare($insertCustomerQuery);
+         $stmtCustomer->bind_param("ss", $customerName, $customerNumber);
+ 
+         $customerInsertSuccess = $stmtCustomer->execute();
+ 
+         $customerId = $this->db->insert_id;
+ 
+         $stmtCustomer->close();
+ 
+         if ($customerInsertSuccess) {
+            $selectCarQuery = "SELECT carId FROM cars WHERE carName = ?";
+            $stmtCar = $this->db->prepare($selectCarQuery);
+            $stmtCar->bind_param("s", $carName);
+            $stmtCar->execute();
+            $stmtCar->bind_result($carId);
+
+            if ($stmtCar->fetch()) {
+                $stmtCar->close();
+
+            $insertRentalQuery = "INSERT INTO rentals (customerId, carId, borrowDate, returnDate, price, fine_per_day, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $stmtRental = $this->db->prepare($insertRentalQuery);
+            $stmtRental->bind_param("iissdss", $customerId, $carId, $borrowDate, $returnDate, $price, $finePerDay, $status);
+
+            $rentalInsertSuccess = $stmtRental->execute();
+
+            $stmtRental->close();
+
+            return $rentalInsertSuccess;
+         } else {
+             return false;
+         }
+     }
+ }
+}
+ 
+ $rentalManager = new RentalManager($db);
+ 
+ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addButton"])) {
+     $customerName = $_POST["customerName"];
+     $customerNumber = $_POST["customerEmail"];
+     $car = $_POST["car"];
+     $borrowDate = $_POST["borrowDate"];
+     $returnDate = $_POST["returnDate"];
+     $price = $_POST["price"];
+     $fine = $_POST["fine"];
+     $status = $_POST["status"];
+ 
+     $bookingAdded = $rentalManager->addBooking($customerName, $customerEmail, $car, $borrowDate, $returnDate, $price, $fine, $status);
+ 
+     if ($bookingAdded) {
+        echo "<script>alert('Booking added successfully!');</script>";
+    } else {
+        echo "<script>alert('Failed to add booking');</script>";
+    }
+ }
+    ?>
     <!-- End of newTransaction -->
 
 

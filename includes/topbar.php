@@ -27,9 +27,24 @@
                 padding:0;
                 padding-top:5px;
             }
+            .timestamp {
+            position: absolute;
+            top: 70px;
+            right: 10px;
+        }
 
 
         </style>
+            <div class="timestamp" id="timestamp"></div>
+            <script>
+                function updateTimestamp() {
+                    var timestampDiv = document.getElementById('timestamp');
+                    var now = new Date();
+                    var timestamp = now.toLocaleString();
+                    timestampDiv.innerText =  timestamp;
+                }
+                window.onload = updateTimestamp;
+            </script>
 
       <!-- Main Content -->
       <div id="content">

@@ -61,33 +61,97 @@ include'../includes/sidebar.php';
 
 
     </style>
+<?php
+include_once('../includes/connection.php');
+
+class RentalUpdater {
+    private $db;
+
+    public function __construct(DbConnection $dbConnection) {
+        $this->db = $dbConnection->getConnection();
+    }
+
+    public function updateRentalStatus($bookingID, $status) {
+        $query = "UPDATE rentals SET status = ? WHERE rentalId = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $status, $bookingID);
+
+        $updateResult = $stmt->execute();
+
+        $stmt->close();
+
+        return $updateResult;
+    }
+}
+
+class BookingCanceler {
+    private $db;
+
+    public function __construct(DbConnection $dbConnection) {
+        $this->db = $dbConnection->getConnection();
+    }
+
+    public function cancelBooking($bookingID) {
+        // Your cancel booking logic here
+        // For example, you might update the booking status to 'canceled'
+        $query = "UPDATE rentals SET status = 'canceled' WHERE rentalId = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $bookingID);
+
+        $cancelResult = $stmt->execute();
+
+        $stmt->close();
+
+        return $cancelResult;
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['cancelButton'])) {
+        $bookingID = $_POST['bookingID'];
+
+        // Display confirmation dialog using JavaScript
+        echo '<script>';
+        echo 'var confirmed = confirm("Are you sure you want to cancel?");';
+        echo 'if (confirmed) {';
+        echo '   window.location.href = "cancelBooking.php?bookingID=' . $bookingID . '";';
+        echo '} else {';
+        echo '   alert("Cancellation canceled!");';
+        echo '}';
+        echo '</script>';
+    }
+}
+?>
+
     <!-- Form to cancel advance booking -->
     <!-- Start of cancelBooking -->
     <div class="cardProduct">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" href="updateBooking.php">UPDATE STATUS</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link active" aria-current="true" style="color: white; background-color: rgb(25,25,112); font-weight: bold;" href="cancelBooking.php">CANCEL BOOKING</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link"  href="editBooking.php">EDIT BOOKING</a>
-                </li>             
             </ul>
         </div>
+        <?php
+        $rentalId = isset($_GET['rentalId']) ? $_GET['rentalId'] : null;
+        $customerName = isset($_GET['customer_name']) ? $_GET['customer_name'] : null ;
+        ?>
     <div class="cancelForm">
             <form method="POST">
                 <label for="bookingID">Booking ID:</label><br>
-                <input type="number" id="bookingID" name="bookingID" readonly>
+                <input type="number" id="bookingID" name="bookingID" value="<?php echo $rentalId; ?>" readonly>
                 <br>
 
                 <label for="customerName">Customer Name:</label><br>
-                <input type="number" id="customerName" name="customerName" required>
+                <input type="text" id="customerName" name="customerName" value="<?php echo $customerName; ?>" readonly>
+                <br>   
+
+                <label for="status">Status:</label><br>
+                <input type="text" id="status" name="status" value="canceled" required>
                 <br>
                 
-                <button class="addButton" type="submit" name="cancelButton">CANCEL</button>
+                <button class="addButton" type="submit" name="cancelButton">OK</button>
             </form>
         </div>
 

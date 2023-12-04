@@ -100,6 +100,53 @@ include'../includes/sidebar.php';
         </div>
 
     </div>
+    <?php
+        include_once('../includes/connection.php');
+        
+        class CarManager
+        {
+            private $db;
+        
+            public function __construct($db)
+            {
+                $this->db = $db;
+            }
+        
+            public function addCar($carName, $brand, $model, $year, $color)
+            {
+                $insertQuery = "INSERT INTO cars (carName, brand, model, yearModel, color) VALUES (?, ?, ?, ?, ?)";
+                $stmt = $this->db->prepare($insertQuery);
+                $stmt->bind_param("sssss", $carName, $brand, $model, $year, $color);
+        
+                $addSuccess = $stmt->execute();
+        
+                $stmt->close();
+        
+                return $addSuccess;
+            }
+        }
+        
+        $dbConnection = new DbConnection();
+        $db = $dbConnection->getConnection();
+        
+        $carManager = new CarManager($db);
+        
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addButton"])) {
+            $carName = $_POST["carName"];
+            $brand = $_POST["brand"];
+            $model = $_POST["model"];
+            $year = $_POST["year"];
+            $color = $_POST["color"];
+        
+            $addSuccess = $carManager->addCar($carName, $brand, $model, $year, $color);
+        
+            if ($addSuccess) {
+                echo "<script>alert('Car added successfully!');</script>";
+            } else {
+                echo "<script>alert('Failed to add car');</script>";
+            }
+        }
+        ?>
     <!-- End of addCar -->
 
 

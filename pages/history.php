@@ -42,7 +42,7 @@ include'../includes/sidebar.php';
                      <th>No.</th>
                      <th>CUSTOMER NAME</th>
                      <th>CAR</th>
-                     <th>BARROW DATE</th>
+                     <th>BORROW DATE</th>
                      <th>RETURN DATE</th>   
                      <th>PRICE</th>
                      <th>FINE P.D</th>
@@ -53,7 +53,38 @@ include'../includes/sidebar.php';
                    </tr>
                </thead>
                 <tbody>
-                    <!-- CODE FOR TBODY DATA -->
+                <?php
+                        include_once('../includes/connection.php');
+                        $dbConnection = new DbConnection();
+                        $db = $dbConnection->getConnection();
+                                $Query = "SELECT rentals.rentalId, customers.name AS customer_name, cars.carName, rentals.borrowDate, rentals.returnDate, rentals.price, rentals.fine_per_day, rentals.status, rentals.dateReturned, rentals.penalty, rentals.grossIncome
+                                FROM rentals
+                                INNER JOIN customers ON rentals.customerId = customers.customerId 
+                                INNER JOIN cars ON rentals.carId = cars.carId
+                                WHERE rentals.status = 'completed'";
+                        
+                                $result = $db->query($Query);
+                        
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td>{$row['rentalId']}</td>";
+                                    echo "<td>{$row['customer_name']}</td>";
+                                    echo "<td>{$row['carName']}</td>";
+                                    echo "<td>{$row['borrowDate']}</td>";
+                                    echo "<td>{$row['returnDate']}</td>";
+                                    echo "<td>{$row['price']}</td>";
+                                    echo "<td>{$row['fine_per_day']}</td>";
+                                    echo "<td>{$row['dateReturned']}</td>";
+                                    echo "<td>{$row['penalty']}</td>";
+                                    echo "<td>{$row['grossIncome']}</td>";
+                                    echo "<td>{$row['status']}</td>";                                                        
+                                }
+                                } else {
+                                echo "<tr><td colspan='9'>No completed rentals found</td></tr>";
+                                }
+                        ?>
+                    </tbody>
                 </tbody>
                             
                 </table>

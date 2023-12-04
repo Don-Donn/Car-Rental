@@ -66,26 +66,23 @@ include'../includes/sidebar.php';
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" href="updateBooking.php">UPDATE STATUS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cancelBooking.php">CANCEL</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link active" aria-current="true" style="color: white; background-color: rgb(25,25,112); font-weight: bold;" href="editBooking.php">EDIT BOOKING</a>
                 </li>             
             </ul>
         </div>
-
+        <?php
+        $rentalId = isset($_GET['rentalId']) ? $_GET['rentalId'] : null;
+        $customerName = isset($_GET['customer_name']) ? $_GET['customer_name'] : null ;
+        ?>
         <div class="editBookingForm">
             <form method="POST">
                 
                 <label for="ID">ID:</label><br>
-                <input type="text" id="ID" name="ID"  readonly>
+                <input type="text" id="ID" name="ID" value="<?php echo $rentalId; ?>" readonly>
                 <br>
 
                 <label for="customerName">Customer Name:</label><br>
-                <input type="text" id="customerName" name="customerName" required>
+                <input type="text" id="customerName" name="customerName" value="<?php echo $customerName; ?>" required>
                 <br>     
 
                 <label for="car">Car:</label><br>

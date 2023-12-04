@@ -31,7 +31,34 @@ include'../includes/sidebar.php';
     padding: 5px;
     }
     </style>
+    <?php
+include_once('../includes/connection.php');
 
+class AdminAccountManager
+{
+    private $db;
+
+    public function __construct($db)
+    {
+        $this->db = $db;
+    }
+
+    public function getAdminAccounts()
+    {
+        $selectQuery = "SELECT admin_id, username, password FROM admin_accounts";
+        $result = $this->db->query($selectQuery);
+
+        return $result;
+    }
+}
+
+$dbConnection = new DbConnection();
+$db = $dbConnection->getConnection();
+
+$adminAccountManager = new AdminAccountManager($db);
+
+$adminAccounts = $adminAccountManager->getAdminAccounts();
+?>
     <!-- Main Table to show list of accounts -->
     <!-- Start of adminAccount -->
     <div class="cardProduct">
@@ -47,13 +74,27 @@ include'../includes/sidebar.php';
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Username</th>
                                 <th>Password</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                     <tbody>
-                    <!-- CODE FOR FUNCTION OF THE TABLE -->
+                    <?php
+                    if ($adminAccounts->num_rows > 0) {
+                        while ($row = $adminAccounts->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>{$row['admin_id']}</td>";
+                            echo "<td>{$row['username']}</td>";
+                            echo "<td>{$row['password']}</td>";
+                            echo "<td><a href='edit_account.php?id={$row['admin_id']}' class='btn btn-primary'>Edit</a></td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='4'>No admin accounts found</td></tr>";
+                    }
+                    ?>
                     </tbody>
                     </table>
                 </div>
@@ -61,6 +102,7 @@ include'../includes/sidebar.php';
         </div>
 
     </div>
+    
     <!-- End of adminAccount -->
 
 

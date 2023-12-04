@@ -48,7 +48,7 @@ include'../includes/sidebar.php';
                                 <th>ID</th>
                                 <th>CUSTOMER NAME</th>
                                 <th>CAR</th>
-                                <th>BARROW DATE</th>
+                                <th>BORROW DATE</th>
                                 <th>RETURN DATE</th>   
                                 <th>PRICE</th>
                                 <th>FINE P.D</th>
@@ -57,7 +57,35 @@ include'../includes/sidebar.php';
                             </tr>
                         </thead>
                     <tbody>
-                    <!-- CODE FOR FUNCTION OF THE TABLE -->
+                        <?php
+                        include_once('../includes/connection.php');
+                        $dbConnection = new DbConnection();
+                        $db = $dbConnection->getConnection();
+                                $Query = "SELECT rentals.rentalId, customers.name AS customer_name, rentals.carId, rentals.borrowDate, rentals.returnDate, rentals.price, rentals.fine_per_day, rentals.status
+                                FROM rentals
+                                INNER JOIN customers ON rentals.customerId = customers.customerId
+                                WHERE rentals.status = 'ongoing'";
+                        
+                                $result = $db->query($Query);
+                        
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td>{$row['rentalId']}</td>";
+                                    echo "<td>{$row['customer_name']}</td>";
+                                    echo "<td>{$row['carId']}</td>";
+                                    echo "<td>{$row['borrowDate']}</td>";
+                                    echo "<td>{$row['returnDate']}</td>";
+                                    echo "<td>{$row['price']}</td>";
+                                    echo "<td>{$row['fine_per_day']}</td>";
+                                    echo "<td>{$row['status']}</td>";
+                                    echo "<td><a href='updateOngoing.php?rentalId={$row['rentalId']}' class='btn btn-primary'>Update</a></td>";
+                                    echo "</tr>";
+                                }
+                                } else {
+                                echo "<tr><td colspan='9'>No ongoing rentals found</td></tr>";
+                                }
+                        ?>
                     </tbody>
                     </table>
                 </div>
@@ -65,6 +93,7 @@ include'../includes/sidebar.php';
         </div>
 
     </div>
+    
     <!-- End of ongoing rentals -->
 
     
@@ -87,7 +116,7 @@ include'../includes/sidebar.php';
                                 <th>ID</th>
                                 <th>CUSTOMER NAME</th>
                                 <th>CAR</th>
-                                <th>BARROW DATE</th>
+                                <th>BORROW DATE</th>
                                 <th>RETURN DATE</th>   
                                 <th>PRICE</th>
                                 <th>FINE P.D</th>
@@ -96,7 +125,38 @@ include'../includes/sidebar.php';
                             </tr>
                         </thead>
                     <tbody>
-                    <!-- CODE FOR FUNCTION OF THE TABLE -->
+                    <?php
+                        include_once('../includes/connection.php');
+                        $dbConnection = new DbConnection();
+                        $db = $dbConnection->getConnection();
+                                $Query = "SELECT rentals.rentalId, customers.name AS customer_name, rentals.carId, rentals.borrowDate, rentals.returnDate, rentals.price, rentals.fine_per_day, rentals.status
+                                FROM rentals
+                                INNER JOIN customers ON rentals.customerId = customers.customerId
+                                WHERE rentals.status = 'upcoming'";
+                        
+                                $result = $db->query($Query);
+                        
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td>{$row['rentalId']}</td>";
+                                    echo "<td>{$row['customer_name']}</td>";
+                                    echo "<td>{$row['carId']}</td>";
+                                    echo "<td>{$row['borrowDate']}</td>";
+                                    echo "<td>{$row['returnDate']}</td>";
+                                    echo "<td>{$row['price']}</td>";
+                                    echo "<td>{$row['fine_per_day']}</td>";
+                                    echo "<td>{$row['status']}</td>";
+                                    echo "<td>
+                                    <a href='updateBooking.php?rentalId={$row['rentalId']}&customer_name={$row['customer_name']}' class='btn btn-primary'>Update</a>
+                                    <a href='cancelBooking.php?rentalId={$row['rentalId']}&customer_name={$row['customer_name']}' class='btn btn-primary'>Cancel</a>
+                                    <a href='editBooking.php?rentalId={$row['rentalId']}&customer_name={$row['customer_name']}' class='btn btn-primary'>Edit</a>
+                                  </td>";                                                         
+                                }
+                                } else {
+                                echo "<tr><td colspan='9'>No upcoming rentals found</td></tr>";
+                                }
+                        ?>
                     </tbody>
                     </table>
                 </div>

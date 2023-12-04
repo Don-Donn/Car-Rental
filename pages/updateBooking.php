@@ -50,7 +50,7 @@ include'../includes/sidebar.php';
         line-height: 1.5;
         }
 
-        .addButton {
+        .updateButton {
         background-color: rgb(255,215,0);
         border: 2px solid black;
         border-radius: 5px;
@@ -59,41 +59,83 @@ include'../includes/sidebar.php';
         border: none;
         cursor: pointer;
         }
-
-
     </style>
-    <!-- Form to update (advanceBooking) from upcoming to ongoing -->
-    <!-- Start of updateBooking -->
-    <div class="cardProduct">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="true" style="color: white; background-color: rgb(25,25,112); font-weight: bold;" href="updateBooking.php">UPDATE STATUS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"  href="cancelBooking.php">CANCEL BOOKING</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"  href="editBooking.php">EDIT BOOKING</a>
-                </li>             
-            </ul>
-        </div>
+<?php
+include_once('../includes/connection.php');
+
+class RentalUpdater {
+    private $db;
+
+    public function __construct(DbConnection $dbConnection) {
+        $this->db = $dbConnection->getConnection();
+    }
+
+    public function updateRentalStatus($bookingID, $status) {
+        $query = "UPDATE rentals SET status = ? WHERE rentalId = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $status, $bookingID);
+
+        $updateResult = $stmt->execute();
+
+        $stmt->close();
+
+        return $updateResult;
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updateButton'])) {
+    $bookingID = $_POST['bookingID'];
+    $customerName = $_POST['customerName'];
+    $status = $_POST['status'];    
+
+    $dbConnection = new DbConnection();
+    $rentalUpdater = new RentalUpdater($dbConnection);
+
+    $updateResult = $rentalUpdater->updateRentalStatus($bookingID, $status);
+
+
+    if ($updateResult) {
+        echo '<script>alert("Update Successful");</script>';
+        exit();
+    } else {
+        echo '<script>alert("Update Failed");</script>';
+    }
+}
+?>
+<!-- Form to update (advanceBooking) from upcoming to ongoing -->
+<!-- Start of updateBooking -->
+<div class="cardProduct">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="true" style="color: white; background-color: rgb(25,25,112); font-weight: bold;" href="updateBooking.php">UPDATE STATUS</a>
+            </li>            
+        </ul>
+    </div>
+    <?php
+    $rentalId = isset($_GET['rentalId']) ? $_GET['rentalId'] : null;
+    $customerName = isset($_GET['customer_name']) ? $_GET['customer_name'] : null ;
+    ?>
     <div class="updateBookingForm">
-            <form method="POST">
-                <label for="bookingID">Booking ID:</label><br>
-                <input type="number" id="bookingID" name="bookingID" readonly>
-                <br>
+    <form method="POST">
+        <label for="bookingID">Booking ID:</label><br>
+        <input type="number" id="bookingID" name="bookingID" value="<?php echo $rentalId; ?>" readonly>
+        <br>
 
-                <label for="status">Status:</label><br>
-                <input type="text" id="status" name="status" value="ongoing"  readonly>
-                <br>
-                
-                <button class="addButton" type="submit" name="cancelButton">UPDATE</button>
-            </form>
-        </div>
+        <label for="customerName">Customer Name:</label><br>
+        <input type="text" id="customerName" name="customerName" value="<?php echo $customerName; ?>" readonly>
+        <br>
 
+        <label for="status">Status:</label><br>
+        <input type="text" id="status" name="status" value="ongoing" readonly>
+        <br>
+        
+        <button class="updateButton" type="submit" name="updateButton">UPDATE</button>
+    </form>
     </div>
-    </div>
+</div>
+</div>
+
     <!-- End of updateBooking -->
 
 

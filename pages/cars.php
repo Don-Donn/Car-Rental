@@ -54,7 +54,32 @@ include'../includes/sidebar.php';
                             </tr>
                         </thead>
                     <tbody>
-                    <!-- CODE FOR FUNCTION OF THE TABLE -->
+                    <?php
+                        include_once('../includes/connection.php');
+                        $dbConnection = new DbConnection();
+                        $db = $dbConnection->getConnection();
+
+                        $selectCarsQuery = "SELECT * FROM cars";
+                        $result = $db->query($selectCarsQuery);
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>{$row['carName']}</td>";
+                                echo "<td>{$row['brand']}</td>";
+                                echo "<td>{$row['model']}</td>";
+                                echo "<td>{$row['yearModel']}</td>";
+                                echo "<td>{$row['color']}</td>";
+                                echo "<td><form method='POST'><input type='hidden' name='carIdToDelete' value='{$row['carId']}'>
+                                    <button type='submit' name='deleteButton' class='btn btn-danger' onclick='return confirm(\"Are you sure?\")'>Delete</button></form></td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='6'>No cars found</td></tr>";
+                        }
+
+                        $db->close();
+                    ?>
                     </tbody>
                     </table>
                 </div>
@@ -62,6 +87,63 @@ include'../includes/sidebar.php';
         </div>
 
     </div>
+    <?php
+include_once('../includes/connection.php');
+
+class CarManager
+{
+    private $db;
+
+    public function __construct($db)
+    {
+        $this->db = $db;
+    }
+
+    public function getCars()
+    {
+        $selectCarsQuery = "SELECT * FROM cars";
+        $result = $this->db->query($selectCarsQuery);
+
+        $cars = array();
+        while ($row = $result->fetch_assoc()) {
+            $cars[] = $row;
+        }
+
+        return $cars;
+    }
+
+    public function deleteCar($carId)
+    {
+        $deleteCarQuery = "DELETE FROM cars WHERE carId = ?";
+        $stmt = $this->db->prepare($deleteCarQuery);
+        $stmt->bind_param("i", $carId);
+
+        $deleteSuccess = $stmt->execute();
+
+        $stmt->close();
+
+        return $deleteSuccess;
+    }
+}
+
+$dbConnection = new DbConnection();
+$db = $dbConnection->getConnection();
+
+$carManager = new CarManager($db);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteButton"])) {
+    $carIdToDelete = $_POST["carIdToDelete"];
+
+    echo "<script>
+        var confirmDelete = confirm('Are you sure you want to delete this car?');
+        if (confirmDelete) {
+            window.location.href = 'deleteCars.php?carId=' + $carIdToDelete;
+        }
+    </script>";
+}
+
+$db->close();
+?>
     <!-- End of cars -->
 
 

@@ -94,6 +94,58 @@ include'../includes/sidebar.php';
         </div>
 
     </div>
+    <?php
+include_once('../includes/connection.php');
+
+class AccountManager
+{
+    private $db;
+
+    public function __construct($db)
+    {
+        $this->db = $db;
+    }
+
+    public function addAccount($username, $password)
+    {
+        // Hash the password before storing it
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $insertQuery = "INSERT INTO admin_accounts (username, password) VALUES (?, ?)";
+        $stmt = $this->db->prepare($insertQuery);
+        $stmt->bind_param("ss", $username, $hashedPassword);
+
+        $addSuccess = $stmt->execute();
+
+        $stmt->close();
+
+        return $addSuccess;
+    }
+}
+
+$dbConnection = new DbConnection();
+$db = $dbConnection->getConnection();
+
+$accountManager = new AccountManager($db);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addButton"])) {
+    $username = $_POST["username"];
+    $password = $_POST["passWord"];
+    $retypePassword = $_POST["retypePass"];
+
+    if ($password == $retypePassword) {
+        $addSuccess = $accountManager->addAccount($username, $password);
+
+        if ($addSuccess) {
+            echo "<script>alert('Account added successfully!');</script>";
+        } else {
+            echo "<script>alert('Failed to add account');</script>";
+        }
+    } else {
+        echo "<script>alert('Passwords do not match');</script>";
+    }
+}
+?>
     <!-- End of addAccount -->
 
 

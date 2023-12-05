@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2023 at 04:37 PM
+-- Generation Time: Dec 05, 2023 at 05:42 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -38,8 +38,8 @@ CREATE TABLE `admin_accounts` (
 --
 
 INSERT INTO `admin_accounts` (`admin_id`, `username`, `password`) VALUES
-(1, 'admin', '$2y$10$0Sc1aGpDllN2q.3evto2Y.lSHoetwyI.dVvkp9oP9r3LpVyLMxjsu'),
-(2, 'marco', '$2y$10$dvub/aT.9uAG2hKYNUvcCuuodiKANqduinEVtJn3xD5Plxb0fl0MS');
+(1, 'admin', '$2y$10$r.IRSWm7z0U/xOXFRXPKI.SWAHfiRWNbS5OlU2WPxpfIcRPBSl2I6'),
+(2, 'marco', '$2y$10$Ddt6RiBxMjq8Gja9tKqu.OBJ5dw0m4SgVVEdl3H1AmmvQdaZIGWxi');
 
 -- --------------------------------------------------------
 
@@ -56,6 +56,13 @@ CREATE TABLE `cars` (
   `color` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `cars`
+--
+
+INSERT INTO `cars` (`carId`, `carName`, `brand`, `model`, `yearModel`, `color`) VALUES
+(1, 'Car 1', 'Toyota', '1GD-FTV', 2023, 'Gray');
+
 -- --------------------------------------------------------
 
 --
@@ -65,8 +72,19 @@ CREATE TABLE `cars` (
 CREATE TABLE `customers` (
   `customerId` int(11) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
-  `number` int(10) DEFAULT NULL
+  `number` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`customerId`, `name`, `number`) VALUES
+(1, 'Yvan Anuyo', '2147483647'),
+(2, 'Don-Don Maranan', '2147483647'),
+(3, 'Miko Salangsang', '2147483647'),
+(4, 'maria clara', '2147483647'),
+(5, 'Pedro', '9214573438');
 
 -- --------------------------------------------------------
 
@@ -87,6 +105,17 @@ CREATE TABLE `rentals` (
   `grossIncome` decimal(10,2) DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `rentals`
+--
+
+INSERT INTO `rentals` (`rentalId`, `customerId`, `carId`, `borrowDate`, `returnDate`, `price`, `fine_per_day`, `dateReturned`, `penalty`, `grossIncome`, `status`) VALUES
+(1, 1, 1, '2023-12-05', '2023-12-06', '5000.00', '5000.00', '2023-12-06', '0.00', '5000.00', 'completed'),
+(2, 2, 1, '2023-12-05', '2023-12-06', '5000.00', '5000.00', '2023-12-06', '0.00', '5000.00', 'completed'),
+(3, 3, 1, '2023-12-05', '2023-12-06', '7000.00', '7000.00', '2023-12-06', '0.00', NULL, 'completed'),
+(4, 4, 1, '2023-12-05', '2023-12-07', '6000.00', '6000.00', NULL, NULL, NULL, 'upcoming'),
+(5, 5, 1, '2023-12-05', '2023-12-06', '5000.00', '5000.00', NULL, NULL, NULL, 'ongoing');
 
 --
 -- Indexes for dumped tables
@@ -133,19 +162,19 @@ ALTER TABLE `admin_accounts`
 -- AUTO_INCREMENT for table `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `carId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `carId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customerId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `customerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `rentals`
 --
 ALTER TABLE `rentals`
-  MODIFY `rentalId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `rentalId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

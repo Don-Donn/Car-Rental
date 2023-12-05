@@ -49,7 +49,7 @@ include'../includes/sidebar.php';
         line-height: 1.5;
         }
 
-        .addButton {
+        .cancelButton {
         background-color: rgb(255,215,0);
         border: 2px solid black;
         border-radius: 5px;
@@ -64,26 +64,6 @@ include'../includes/sidebar.php';
 <?php
 include_once('../includes/connection.php');
 
-class RentalUpdater {
-    private $db;
-
-    public function __construct(DbConnection $dbConnection) {
-        $this->db = $dbConnection->getConnection();
-    }
-
-    public function updateRentalStatus($bookingID, $status) {
-        $query = "UPDATE rentals SET status = ? WHERE rentalId = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("si", $status, $bookingID);
-
-        $updateResult = $stmt->execute();
-
-        $stmt->close();
-
-        return $updateResult;
-    }
-}
-
 class BookingCanceler {
     private $db;
 
@@ -92,8 +72,6 @@ class BookingCanceler {
     }
 
     public function cancelBooking($bookingID) {
-        // Your cancel booking logic here
-        // For example, you might update the booking status to 'canceled'
         $query = "UPDATE rentals SET status = 'canceled' WHERE rentalId = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $bookingID);
@@ -110,15 +88,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['cancelButton'])) {
         $bookingID = $_POST['bookingID'];
 
-        // Display confirmation dialog using JavaScript
-        echo '<script>';
-        echo 'var confirmed = confirm("Are you sure you want to cancel?");';
-        echo 'if (confirmed) {';
-        echo '   window.location.href = "cancelBooking.php?bookingID=' . $bookingID . '";';
-        echo '} else {';
-        echo '   alert("Cancellation canceled!");';
-        echo '}';
-        echo '</script>';
+        $dbConnection = new DbConnection();
+        $bookingCanceler = new BookingCanceler($dbConnection);
+
+        $cancelResult = $bookingCanceler->cancelBooking($bookingID);
+
+        if ($cancelResult) {
+            echo '<script>alert("Booking canceled successfully.");';
+            echo 'window.location.href = "rentals.php";</script>';
+        } else {
+            echo '<script>alert("Failed to cancel booking.");';
+            echo 'window.location.href = "rentals.php";</script>';
+        }
     }
 }
 ?>
@@ -151,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" id="status" name="status" value="canceled" required>
                 <br>
                 
-                <button class="addButton" type="submit" name="cancelButton">OK</button>
+                <button class="cancelButton" type="submit" name="cancelButton">OK</button>
             </form>
         </div>
 

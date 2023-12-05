@@ -140,7 +140,7 @@ include'../includes/sidebar.php';
      {
          $insertCustomerQuery = "INSERT INTO customers (name, number) VALUES (?,?)";
          $stmtCustomer = $this->db->prepare($insertCustomerQuery);
-         $stmtCustomer->bind_param("ss", $customerName, $customerNumber);
+         $stmtCustomer->bind_param("si", $customerName, $customerNumber);
  
          $customerInsertSuccess = $stmtCustomer->execute();
  
@@ -179,7 +179,7 @@ include'../includes/sidebar.php';
  
  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addButton"])) {
      $customerName = $_POST["customerName"];
-     $customerNumber = $_POST["customerEmail"];
+     $customerNumber = $_POST["customerNumber"];
      $car = $_POST["car"];
      $borrowDate = $_POST["borrowDate"];
      $returnDate = $_POST["returnDate"];
@@ -187,7 +187,7 @@ include'../includes/sidebar.php';
      $fine = $_POST["fine"];
      $status = $_POST["status"];
  
-     $bookingAdded = $rentalManager->addBooking($customerName, $customerEmail, $car, $borrowDate, $returnDate, $price, $fine, $status);
+     $bookingAdded = $rentalManager->addBooking($customerName, $customerNumber, $car, $borrowDate, $returnDate, $price, $fine, $status);
  
      if ($bookingAdded) {
         echo "<script>alert('Booking added successfully!');</script>";

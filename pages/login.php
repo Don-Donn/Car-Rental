@@ -62,24 +62,22 @@ class AdminLogin {
             return "Please enter both username and password.";
         }
     
-        $query = "SELECT * FROM admin_accounts WHERE username = ? AND password = ?";
+        $query = "SELECT * FROM admin_accounts WHERE username = ?";
         $stmt = $this->db->prepare($query);
     
-
-        $stmt->bind_param("ss", $username, $password);
+        $stmt->bind_param("s", $username);
     
-
         $stmt->execute();
 
-        $stmt->store_result();
-    
-        $rowCount = $stmt->num_rows;
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
 
         $stmt->close();
-        if ($rowCount > 0) {
+
+        if ($user && password_verify($password, $user['password'])) {
             return true;
         } else {
-            return "Invalid username or password. Row count: $rowCount";
+            return "Invalid username or password.";
         }
     }
 }
@@ -102,6 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!-- End of Login Page -->
 

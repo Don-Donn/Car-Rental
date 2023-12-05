@@ -31,8 +31,30 @@ include'../includes/sidebar.php';
             <div class="card-header py-3">
                 <h4 class="m-2 font-weight-bold ">Products</h4>
                 <div class = "search-bar">
-                    <input type="text" placeholder="Search Customer Name..." class="form-control">
+                    <input type="text" id="searchInput" placeholder="Search Customer Name..." class="form-control">
                 </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+        // JavaScript for the search functionality
+        document.getElementById("searchInput").addEventListener("input", function () {
+            var searchTerm = this.value.toLowerCase();
+            var customerNames = document.querySelectorAll("#dataTable tbody tr td:nth-child(2)"); // Assuming customer names are in the second column
+
+            customerNames.forEach(function (name) {
+                var nameText = name.textContent.toLowerCase();
+                var row = name.closest("tr");
+
+                if (nameText.includes(searchTerm)) {
+                    row.style.display = ""; // Show the row
+                } else {
+                    row.style.display = "none"; // Hide the row
+                }
+            });
+        });
+    </script>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -57,12 +79,11 @@ include'../includes/sidebar.php';
                         include_once('../includes/connection.php');
                         $dbConnection = new DbConnection();
                         $db = $dbConnection->getConnection();
-                                $Query = "SELECT rentals.rentalId, customers.name AS customer_name, cars.carName, rentals.borrowDate, rentals.returnDate, rentals.price, rentals.fine_per_day, rentals.status, rentals.dateReturned, rentals.penalty, rentals.grossIncome
+                                $Query = "SELECT rentals.rentalId, customers.name AS customer_name, cars.carName, rentals.borrowDate, rentals.returnDate, rentals.price, rentals.fine_per_day, rentals.status, rentals.dateReturned, rentals.penalty, (rentals.price + rentals.penalty) AS grossIncome
                                 FROM rentals
                                 INNER JOIN customers ON rentals.customerId = customers.customerId 
                                 INNER JOIN cars ON rentals.carId = cars.carId
                                 WHERE rentals.status = 'completed'";
-                        
                                 $result = $db->query($Query);
                         
                                 if ($result->num_rows > 0) {
@@ -89,8 +110,7 @@ include'../includes/sidebar.php';
                             
                 </table>
                         
-               </div>
-                   
+               </div>                  
             </div>
                   
     </div>

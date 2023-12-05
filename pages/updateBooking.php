@@ -96,6 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updateButton'])) {
 
     if ($updateResult) {
         echo '<script>alert("Update Successful");</script>';
+        header("Location: rentals.php");
         exit();
     } else {
         echo '<script>alert("Update Failed");</script>';

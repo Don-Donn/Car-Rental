@@ -49,7 +49,7 @@ include'../includes/sidebar.php';
         line-height: 1.5;
         }
 
-        .addButton {
+        .saveButton {
         background-color: rgb(255,215,0);
         border: 2px solid black;
         border-radius: 5px;
@@ -59,7 +59,59 @@ include'../includes/sidebar.php';
         cursor: pointer;
         }
     </style>
+<?php
+include_once('../includes/connection.php');
 
+class BookingEditor {
+    private $db;
+
+    public function __construct(DbConnection $dbConnection) {
+        $this->db = $dbConnection->getConnection();
+    }
+
+    public function editBooking($bookingID, $customerName, $car, $barrowDate, $returnDate, $price, $fine, $status) {
+        $query = "UPDATE rentals 
+                  INNER JOIN customers ON rentals.customerId = customers.customerId 
+                  INNER JOIN cars ON rentals.carId = cars.carId 
+                  SET customers.name = ?, cars.carName = ?, rentals.borrowDate = ?, rentals.returnDate = ?, rentals.price = ?, rentals.fine_per_day = ? , rentals.status = ?
+                  WHERE rentals.rentalId = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ssssddsi", $customerName, $car, $barrowDate, $returnDate, $price, $fine, $status, $bookingID);
+
+        $updateResult = $stmt->execute();
+    
+        $stmt->close();
+    
+        return $updateResult;
+    }    
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['saveButton'])) {
+        $bookingID = $_POST['ID'];
+        $customerName = $_POST['customerName'];
+        $car = $_POST['car'];
+        $borrowDate = $_POST['borrowDate'];
+        $returnDate = $_POST['returnDate'];
+        $price = $_POST['price'];
+        $fine = $_POST['fine'];
+        $status =$_POST['status'];
+
+        $dbConnection = new DbConnection();
+        $bookingEditor = new BookingEditor($dbConnection);
+
+        $editResult = $bookingEditor->editBooking($bookingID, $customerName, $car, $borrowDate, $returnDate, $price, $fine, $status);
+
+        if ($editResult) {
+            echo '<script>alert("Booking edited successfully.");';
+            echo 'window.location.href = "rentals.php";</script>';
+        } else {
+            echo '<script>alert("Failed to edit booking.");';
+            echo 'window.location.href = "rentals.php";</script>';
+        }
+    }
+}
+?>
     <!-- Form to edit typo or extend date in the advance booking table -->
     <!-- Start of editBooking-->
     <div class="cardProduct">
@@ -78,7 +130,7 @@ include'../includes/sidebar.php';
             <form method="POST">
                 
                 <label for="ID">ID:</label><br>
-                <input type="text" id="ID" name="ID" value="<?php echo $rentalId; ?>" readonly>
+                <input type="number" id="ID" name="ID" value="<?php echo $rentalId; ?>" readonly>
                 <br>
 
                 <label for="customerName">Customer Name:</label><br>
@@ -94,8 +146,8 @@ include'../includes/sidebar.php';
                 </select>
                 <br>   
 
-                <label for="barrowDate">Barrow Date:</label>
-                <input type="date" id="barrowDate" name="barrowDate" required>
+                <label for="borrowDate">Borrow Date:</label>
+                <input type="date" id="borrowDate" name="borrowDate" required>
                 <br>
 
                 <label for="returnDate">Return Date:</label>
@@ -114,7 +166,7 @@ include'../includes/sidebar.php';
                 <input type="text" id="status" name="status" value="upcoming"  readonly>
                 <br>
 
-                <button class="addButton" type="submit" name="addButton">SAVE</button>
+                <button class="saveButton" type="submit" name="saveButton">SAVE</button>
             </form>
         </div>
 

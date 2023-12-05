@@ -12,7 +12,7 @@ The **Car Rental Management System** is a web-based application designed to stre
 
 **USER AUTHENTICATION**
 
-The system incorporates a robust login feature to ensure secure access. Follow these steps:
+The system includes a login feature to enhance security. Only authorized users can access the admin functionalities. Follow the steps below to log in:
 
 1. Open the application in your web browser.
 2. You will be redirected to the login page.
@@ -21,7 +21,7 @@ The system incorporates a robust login feature to ensure secure access. Follow t
 
 **DASHBOARD**
 
-The dashboard provides a snapshot of the rental business with the following sections:
+The dashboard provides a quick overview of the rental business with the following sections:
 
 - **Ongoing Rental/s**: Displays details of ongoing rentals, including customer name, car information, borrow date, return date, price, fine per day, status, and actions (e.g., input returned date, penalty, update status).
 
@@ -79,7 +79,4 @@ The dashboard provides a snapshot of the rental business with the following sect
 3. **Car Section**: Add, edit, or delete cars available for rentals.
 
 4. **Accounts**: Manage admin accounts, edit passwords, and add new admin accounts.
-
-Forms: Use forms to add new transactions, manage advance bookings, update ongoing rentals, add cars, and manage admin accounts.
-
 

@@ -49,7 +49,7 @@ The dashboard provides a snapshot of the rental business with the following sect
 
 - **Admin Account Management**: Table listing admin accounts with columns for username and actions (e.g., edit password).
 
-- **Edit Account**: Form for editing an admin account, allowing changes to the username and password.
+- **Edit Account**: Form for editing an admin account, allowing changes to the password.
 
 - **Add Account**: Form for adding a new admin account with fields for username and password.
 

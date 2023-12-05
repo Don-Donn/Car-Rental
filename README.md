@@ -1,112 +1,82 @@
 # Car-Rental-System
-#OVERVIEW
+**OVERVIEW**
 
-The Car Rental Management System is a web-based application designed to facilitate the management of car rentals for a rental business. It includes features such as a dashboard for an overview of ongoing and completed rentals, transaction history, advance booking, car listing, and account management.
+The **Car Rental Management System** is a web-based application designed to streamline car rental business operations. It offers a comprehensive dashboard for quick insights, user authentication for security, and various features such as ongoing and completed rentals, advance booking, car listing, and account management.
 
+**TECHNOLOGIES USED**
 
-TECHNOLOGIES USED
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Php for server-side scripting
+- **Database**: MySQL
+- **Version Control**: Git for efficient version management
 
-Frontend: HTML, CSS, JavaScript
-Backend: Server-side scripting language (Php)
-         Database (MySQL)
-Version Control: Git for version control.
+**USER AUTHENTICATION**
 
-MANUAL:
+The system incorporates a robust login feature to ensure secure access. Follow these steps:
 
-Login
+1. Open the application in your web browser.
+2. You will be redirected to the login page.
+3. Enter your username and password (Default login: username-admin, password-admin).
+4. Click the "Login" button.
 
-User Authentication
+**DASHBOARD**
 
-The system includes a login feature to enhance security. Only authorized users can access the admin functionalities. Follow the steps below to log in:
+The dashboard provides a snapshot of the rental business with the following sections:
 
-Open the application in your web browser.
-You will be redirected to the login page.
-Enter your username and password. (default login: username-admin password-admin)
-Click the "Login" button.
+- **Ongoing Rental/s**: Displays details of ongoing rentals, including customer name, car information, borrow date, return date, price, fine per day, status, and actions (e.g., input returned date, penalty, update status).
 
-Dashboard
+- **Completed Rentals**: Presents a table of transaction history for completed rentals, including customer name, car details, borrow date, return date, price, fine per day, date returned, penalty, gross income, and status.
 
-The dashboard provides a quick overview of the rental business with the following sections:
+- **Gross Income**: Offers an overview of the total gross income generated from completed rentals.
 
-Ongoing Rental/s
+**RENTALS**
 
-Displays a table with details of ongoing rentals, including customer name, car information, borrow date, return date, price, fine per day, status, and actions (e.g., input returned date, penalty, update status from ongoing to completed).
+- **Advance Booking**: Features a table with details of advance bookings, including transaction number, date, customer name, car information, borrow date, return date, price, fine per day, status, and actions (e.g., edit, update status, cancel).
 
-Completed Rentals
+- **Ongoing Rental/s**: Displays a table with ongoing rentals, showing transaction number, customer name, car information, borrow date, return date, price, fine per day, status, and actions (e.g., input returned date, penalty, update status).
 
-Shows a table containing transaction history for completed rentals, including customer name, car information, borrow date, return date, price, fine per day, date returned, penalty, gross income, and status.
+- **Transaction History**: A searchable table providing details such as transaction number, customer name, car details, borrow date, return date, price, fine per day, date returned, penalty, gross income, and status.
 
-Gross Income
+**CAR SECTION**
 
-Provides an overview of the total gross income generated from completed rentals.
+- **Car Listing**: Displays a table listing all available cars for rentals, including car name, brand, model, year model, color, and actions (e.g., delete).
 
-Rentals
+- **Add Car**: Form for adding a new car to the listing with fields for car name, brand, model, year model, and color.
 
-Advance Booking
+**ACCOUNTS**
 
-Displays a table with details of advance bookings, including transaction number, date, customer name, car information, borrow date, return date, price, fine per day, status, and actions (e.g., edit, update status from upcoming to ongoing, cancel).
+- **Admin Account Management**: Table listing admin accounts with columns for username and actions (e.g., edit password).
 
-Ongoing Rental/s
+- **Edit Account**: Form for editing an admin account, allowing changes to the username and password.
 
-Shows a table with details of ongoing rentals, including transaction number, customer name, car information, borrow date, return date, price, fine per day, status, and actions (e.g., input returned date, penalty, update status from ongoing to completed).
+- **Add Account**: Form for adding a new admin account with fields for username and password.
 
-Transaction History
+**FORMS**
 
-Provides a table with a search function, including transaction number, customer name, car information, borrow date, return date, price, fine per day, date returned, penalty, gross income, and status.
+- **New Transaction**: Fields for date, customer name, car selection (dropdown list), borrow date, return date, price, fine per day, and status (upcoming or ongoing).
 
-Car Section
+- **Advance Booking (Edit, Update Status, Cancel)**:
+  - Edit Form: Displays details based on the table for modifications.
+  - Update Form: Fields for transaction number, status, and an update button.
+  - Cancel Form: Fields for transaction number and a cancel button (clears data).
 
-Car Listing
+- **Ongoing Rental (Update Status)**: Fields for transaction number, returned date, penalty, and an update status button.
 
-Displays a table listing all available cars for rentals, including car name, brand, model, year model, color, and actions (e.g., delete).
+- **Car Section (Add Car)**: Fields for car name, brand, model, year model, color, and an add car button.
 
-Add Car
+- **Accounts (Edit, Add Account)**:
+  - Edit Form: Fields for account number, username, and a new password.
+  - Add Account Form: Fields for username and password.
 
-Includes a form for adding a new car to the listing with fields for car name, brand, model, year model, and color.
+**USAGE**
 
-Accounts
+1. **Dashboard**: Navigate for an overview of ongoing rentals, completed rentals, and gross income.
 
-Admin Account Management
+2. **Rentals**: Manage advance bookings, ongoing rentals, and view transaction history.
 
-Displays a table listing admin accounts with columns for username and actions (e.g., edit password).
+3. **Car Section**: Add, edit, or delete cars available for rentals.
 
-Edit Account
-
-Includes a form for editing an admin account, allowing changes to the username and password.
-
-Add Account
-
-Provides a form for adding a new admin account with fields for username and password.
-
-Forms
-
-New Transaction
-
-Includes fields for date, customer name, car selection (dropdown list), borrow date, return date, price, fine per day, and status (upcoming or ongoing).
-
-Advance Booking (Edit, Update Status, Cancel)
-Edit Form: Displays details based on the table, allowing modifications.
-Update Form: Includes fields for transaction number, status, and an update button.
-Cancel Form: Includes fields for transaction number and a cancel button (clears data in the table and database).
-Ongoing Rental (Update Status)
-Includes fields for transaction number, returned date, penalty, and an update status button.
-
-Car Section (Add Car)
-
-Includes fields for car name, brand, model, year model, color, and an add car button.
-
-Accounts (Edit, Add Account)
-
-Edit Form: Includes fields for account number, username, and a new password.
-Add Account Form: Includes fields for username and password.
-Usage
-Dashboard: Navigate to the dashboard to get an overview of ongoing rentals, completed rentals, and gross income.
-
-Rentals: Manage advance bookings, ongoing rentals, and view transaction history.
-
-Car Section: Add, edit, or delete cars available for rentals.
-
-Accounts: Manage admin accounts, edit passwords, and add new admin accounts.
+4. **Accounts**: Manage admin accounts, edit passwords, and add new admin accounts.
 
 Forms: Use forms to add new transactions, manage advance bookings, update ongoing rentals, add cars, and manage admin accounts.
 

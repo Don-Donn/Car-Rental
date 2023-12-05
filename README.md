@@ -35,7 +35,7 @@ The dashboard provides a snapshot of the rental business with the following sect
 
 - **Ongoing Rental/s**: Displays a table with ongoing rentals, showing transaction number, customer name, car information, borrow date, return date, price, fine per day, status, and actions (e.g., input returned date, penalty, update status).
 
- **Transaction History** 
+ **TRANSACTION HISTORY** 
  
  A searchable table providing details such as transaction number, customer name, car details, borrow date, return date, price, fine per day, date returned, penalty, gross income, and status.
 
